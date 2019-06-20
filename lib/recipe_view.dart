@@ -13,6 +13,7 @@ class RecipeView extends StatefulWidget {
 class _RecipeViewState extends State<RecipeView> {
   @override
   Widget build(BuildContext context) {
+    final addRecipe = Provider.of<RecipeStore>(context).addRecipe;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Recipes'),
@@ -24,14 +25,16 @@ class _RecipeViewState extends State<RecipeView> {
                   .map((recipe) => Card(
                         key: Key(recipe.id.toString()),
                         child: ListTile(
-                          title: Text(recipe.name),
+                          title: Text(recipe.name.isEmpty
+                              ? 'Unnamed recipe'
+                              : recipe.name),
                           trailing: PopupMenuButton<int>(
                             icon: const Icon(Icons.more_vert),
                             itemBuilder: (context) => const [
                                   PopupMenuItem(
                                     value: 0,
                                     child: Text('Edit'),
-                                  )
+                                  ),
                                 ],
                             onSelected: (choice) {
                               switch (choice) {
@@ -61,6 +64,21 @@ class _RecipeViewState extends State<RecipeView> {
                       ))
                   .toList(),
             ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        backgroundColor: Theme.of(context).accentColor,
+        onPressed: () {
+          Navigator.push<RecipeEditor>(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RecipeEditor(
+                    initialRecipe: null,
+                    onEditFinished: addRecipe,
+                  ),
+            ),
+          );
+        },
       ),
     );
   }

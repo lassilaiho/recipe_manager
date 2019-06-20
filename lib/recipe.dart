@@ -11,45 +11,20 @@ class Recipe {
 
   const Recipe(
       {this.id, this.name, this.description, this.ingredients, this.steps});
+
+  Recipe withId(int value) => Recipe(
+        id: value,
+        name: name,
+        description: description,
+        ingredients: ingredients,
+        steps: steps,
+      );
 }
 
 class RecipeStore extends ChangeNotifier {
-  final _recipes = [
-    const Recipe(
-      id: 0,
-      name: 'Example 1',
-      description: 'An example recipe',
-      ingredients: [
-        'Ingredient 1',
-        'Ingredient 2',
-        'Ingredient 3',
-      ],
-      steps: 'Mix the ingredients',
-    ),
-    const Recipe(
-      id: 1,
-      name: 'Example 2',
-      description: 'An example recipe',
-      ingredients: [
-        'Ingredient 1',
-        'Ingredient 2',
-        'Ingredient 3',
-      ],
-      steps: 'Mix the ingredients',
-    ),
-    const Recipe(
-      id: 2,
-      name: 'Example 3',
-      description: 'An example recipe',
-      ingredients: [
-        'Ingredient 1',
-        'Ingredient 2',
-        'Ingredient 3',
-      ],
-      steps: 'Mix the ingredients',
-    ),
-  ];
+  final _recipes = <Recipe>[];
   final _recipesById = <int, Recipe>{};
+  var _idCounter = 0;
 
   UnmodifiableListView<Recipe> get recipes => UnmodifiableListView(_recipes);
 
@@ -69,6 +44,17 @@ class RecipeStore extends ChangeNotifier {
         break;
       }
     }
+    notifyListeners();
+  }
+
+  Recipe addRecipe(Recipe recipe) {
+    final newRecipe = recipe.withId(_idCounter++);
+    _recipes.add(newRecipe);
+    _recipesById[newRecipe.id] = newRecipe;
+    notifyListeners();
+    return newRecipe;
+  }
+
     notifyListeners();
   }
 }

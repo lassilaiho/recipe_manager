@@ -44,8 +44,10 @@ class RecipeDetails extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(recipe.name, style: textTheme.headline),
-                _padTop(Text(recipe.description)),
+                Text(recipe.name.isEmpty ? 'Unnamed recipe' : recipe.name,
+                    style: textTheme.headline),
+                if (recipe.description.isNotEmpty)
+                  _padTop(Text(recipe.description)),
                 _padTop(Text(
                   'Ingredients',
                   style: textTheme.headline,

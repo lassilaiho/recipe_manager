@@ -17,10 +17,10 @@ class _RecipeEditorState extends State<RecipeEditor> {
   final Recipe initialRecipe;
   final void Function(Recipe) onEditFinished;
 
-  String name;
-  String description;
-  String ingredients;
-  String steps;
+  var name = '';
+  var description = '';
+  var ingredients = '';
+  var steps = '';
 
   final _formKey = GlobalKey<FormState>();
 
@@ -97,7 +97,7 @@ class _RecipeEditorState extends State<RecipeEditor> {
         id: initialRecipe?.id ?? -1,
         name: name,
         description: description,
-        ingredients: ingredients.split('\n'),
+        ingredients: ingredients.isEmpty ? [] : ingredients.split('\n'),
         steps: steps,
       ));
     }

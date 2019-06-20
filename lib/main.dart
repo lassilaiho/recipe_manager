@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Recipe Manager',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        accentColor: Colors.pink,
       ),
       home: RecipeView(),
     );
