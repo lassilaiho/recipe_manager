@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'recipe.dart';
 import 'recipe_editor.dart';
 
 class RecipeDetails extends StatelessWidget {
-  final Recipe recipe;
-  final void Function(Recipe) updateRecipe;
+  final int recipeId;
 
-  const RecipeDetails({this.recipe, this.updateRecipe});
+  const RecipeDetails(this.recipeId);
 
   @override
   Widget build(BuildContext context) {
@@ -21,45 +21,52 @@ class RecipeDetails extends StatelessWidget {
             tooltip: 'Edit',
             onPressed: () {
               Navigator.push<RecipeEditor>(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => RecipeEditor(
-                            initialRecipe: recipe,
-                            onEditFinished: updateRecipe,
-                          )));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Consumer<RecipeStore>(
+                        builder: (context, recipeStore, child) => RecipeEditor(
+                              initialRecipe:
+                                  recipeStore.getRecipeById(recipeId),
+                              onEditFinished: recipeStore.updateRecipe,
+                            ),
+                      ),
+                ),
+              );
             },
           )
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(recipe.name, style: textTheme.headline),
-            _padTop(Text(recipe.description)),
-            _padTop(Text(
-              'Ingredients',
-              style: textTheme.headline,
-            )),
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: recipe.ingredients
-                    .map((ingredient) => Text('• $ingredient'))
-                    .toList(),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Text(
-                'Steps',
-                style: textTheme.headline,
-              ),
-            ),
-            Text(recipe.steps),
-          ],
+        child: Consumer<RecipeStore>(
+          builder: (context, recipeStore, child) {
+            final recipe = recipeStore.getRecipeById(recipeId);
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(recipe.name, style: textTheme.headline),
+                _padTop(Text(recipe.description)),
+                _padTop(Text(
+                  'Ingredients',
+                  style: textTheme.headline,
+                )),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: recipe.ingredients
+                        .map((ingredient) => Text('• $ingredient'))
+                        .toList(),
+                  ),
+                ),
+                _padTop(Text(
+                  'Steps',
+                  style: textTheme.headline,
+                )),
+                Text(recipe.steps),
+              ],
+            );
+          },
         ),
       ),
     );
