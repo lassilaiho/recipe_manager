@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'recipe.dart';
+import 'recipe_details.dart';
 
 class RecipeView extends StatelessWidget {
   final recipes = [
@@ -51,6 +52,13 @@ class RecipeView extends StatelessWidget {
             .map((recipe) => Card(
                   child: ListTile(
                     title: Text(recipe.name),
+                    onTap: () {
+                      Navigator.push<RecipeDetails>(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RecipeDetails(recipe)),
+                      );
+                    },
                   ),
                 ))
             .toList(),
