@@ -36,6 +36,8 @@ class RecipeStore extends ChangeNotifier {
 
   Recipe getRecipeById(int id) => _recipesById[id];
 
+  bool containsRecipe(int id) => _recipesById.containsKey(id);
+
   void updateRecipe(Recipe recipe) {
     for (var i = 0; i < _recipes.length; ++i) {
       if (_recipes[i].id == recipe.id) {
@@ -55,6 +57,9 @@ class RecipeStore extends ChangeNotifier {
     return newRecipe;
   }
 
+  void removeRecipe(int id) {
+    _recipes.removeWhere((recipe) => recipe.id == id);
+    _recipesById.remove(id);
     notifyListeners();
   }
 }

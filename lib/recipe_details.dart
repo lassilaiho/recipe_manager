@@ -11,6 +11,14 @@ class RecipeDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recipeStore = Provider.of<RecipeStore>(context);
+    if (!recipeStore.containsRecipe(recipeId)) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Recipe Details'),
+        ),
+      );
+    }
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +41,14 @@ class RecipeDetails extends StatelessWidget {
                 ),
               );
             },
-          )
+          ),
+          IconButton(
+              icon: const Icon(Icons.delete),
+              tooltip: 'Delete',
+              onPressed: () {
+                Navigator.pop(context);
+                recipeStore.removeRecipe(recipeId);
+              }),
         ],
       ),
       body: Padding(

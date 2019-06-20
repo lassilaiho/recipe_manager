@@ -35,6 +35,10 @@ class _RecipeViewState extends State<RecipeView> {
                                     value: 0,
                                     child: Text('Edit'),
                                   ),
+                                  PopupMenuItem(
+                                    value: 1,
+                                    child: Text('Remove'),
+                                  )
                                 ],
                             onSelected: (choice) {
                               switch (choice) {
@@ -49,6 +53,10 @@ class _RecipeViewState extends State<RecipeView> {
                                           ),
                                     ),
                                   );
+                                  break;
+                                case 1:
+                                  recipeStore.removeRecipe(recipe.id);
+                                  break;
                               }
                             },
                           ),
