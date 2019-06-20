@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'recipe.dart';
+import 'recipe_editor.dart';
 
 class RecipeDetails extends StatelessWidget {
   final Recipe recipe;
+  final void Function(Recipe) updateRecipe;
 
-  const RecipeDetails(this.recipe);
+  const RecipeDetails({this.recipe, this.updateRecipe});
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,21 @@ class RecipeDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Recipe Details'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            tooltip: 'Edit',
+            onPressed: () {
+              Navigator.push<RecipeEditor>(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RecipeEditor(
+                            initialRecipe: recipe,
+                            onEditFinished: updateRecipe,
+                          )));
+            },
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
