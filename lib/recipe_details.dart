@@ -59,39 +59,42 @@ class RecipeDetails extends StatelessWidget {
               }),
         ],
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(8),
-        child: Consumer<RecipeStore>(
-          builder: (context, recipeStore, child) {
-            final recipe = recipeStore.getRecipeById(recipeId);
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(recipe.name.isEmpty ? 'Unnamed recipe' : recipe.name,
-                    style: textTheme.headline),
-                if (recipe.description.isNotEmpty)
-                  _padTop(Text(recipe.description)),
-                _padTop(Text(
-                  'Ingredients',
-                  style: textTheme.headline,
-                )),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: recipe.ingredients
-                        .map((ingredient) => Text('• $ingredient'))
-                        .toList(),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Consumer<RecipeStore>(
+            builder: (context, recipeStore, child) {
+              final recipe = recipeStore.getRecipeById(recipeId);
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(recipe.name.isEmpty ? 'Unnamed recipe' : recipe.name,
+                      style: textTheme.headline),
+                  if (recipe.description.isNotEmpty)
+                    _padTop(Text(recipe.description)),
+                  _padTop(Text(
+                    'Ingredients',
+                    style: textTheme.headline,
+                  )),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: recipe.ingredients
+                          .map((ingredient) => Text('• $ingredient'))
+                          .toList(),
+                    ),
                   ),
-                ),
-                _padTop(Text(
-                  'Steps',
-                  style: textTheme.headline,
-                )),
-                Text(recipe.steps),
-              ],
-            );
-          },
+                  _padTop(Text(
+                    'Steps',
+                    style: textTheme.headline,
+                  )),
+                  Text(recipe.steps),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
