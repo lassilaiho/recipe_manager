@@ -4,10 +4,12 @@ import 'package:provider/provider.dart';
 import 'recipe.dart';
 import 'recipe_view.dart';
 
+const databaseName = 'data.db';
+
 void main() {
   runApp(
     ChangeNotifierProvider(
-      builder: (context) => RecipeStore(),
+      builder: (context) => RecipeStore(databaseName),
       child: MyApp(),
     ),
   );
