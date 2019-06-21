@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:collection';
 
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:sqflite/sqflite.dart';
@@ -64,8 +66,9 @@ class RecipeStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Recipe> addRecipe(Recipe recipe) async {
+  Future<Recipe> addRecipe(Recipe recipe, {bool autoAssignId = true}) async {
     final id = await _database.insert('recipes', <String, dynamic>{
+      if (!autoAssignId) 'id': recipe.id,
       'name': recipe.name,
       'description': recipe.description,
       'ingredients': recipe.ingredients.join('\n'),
@@ -85,6 +88,38 @@ class RecipeStore extends ChangeNotifier {
     _recipesById.remove(id);
     await future;
     notifyListeners();
+  }
+
+  CancelableOperation<void> removeRecipeWithDelay(int id, Duration delay) {
+    final completer = CancelableCompleter<void>();
+    final i = _recipes.indexWhere((recipe) => recipe.id == id);
+    if (i == -1) {
+      completer.complete();
+      return completer.operation;
+    }
+    final recipe = _recipes[i];
+    _recipes.removeAt(i);
+    _recipesById.remove(id);
+    notifyListeners();
+    () async {
+      await completer.operation.valueOrCancellation();
+      if (completer.isCanceled) {
+        _recipes.insert(
+          i > _recipes.length ? _recipes.length : i,
+          recipe,
+        );
+        _recipesById[id] = recipe;
+        notifyListeners();
+      }
+    }();
+    Timer(delay, () async {
+      if (!completer.isCanceled) {
+        await _database
+            .delete('recipes', where: 'id = ?', whereArgs: <dynamic>[id]);
+        completer.complete();
+      }
+    });
+    return completer.operation;
   }
 
   Future<void> _loadDatabase(String name) async {

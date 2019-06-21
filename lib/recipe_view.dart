@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'recipe.dart';
+import 'recipe_deletion_snack_bar.dart';
 import 'recipe_details.dart';
 import 'recipe_editor.dart';
 
@@ -55,7 +56,14 @@ class _RecipeViewState extends State<RecipeView> {
                                   );
                                   break;
                                 case 1:
-                                  recipeStore.removeRecipe(recipe.id);
+                                  showRecipeDeletionSnackBar(
+                                    context,
+                                    recipeStore.removeRecipeWithDelay(
+                                      recipe.id,
+                                      recipeDeletionUndoDuration,
+                                    ),
+                                    recipeDeletionUndoDuration,
+                                  );
                                   break;
                               }
                             },

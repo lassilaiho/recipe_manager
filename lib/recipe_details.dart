@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'recipe.dart';
+import 'recipe_deletion_snack_bar.dart';
 import 'recipe_editor.dart';
 
 class RecipeDetails extends StatelessWidget {
@@ -47,7 +48,14 @@ class RecipeDetails extends StatelessWidget {
               tooltip: 'Delete',
               onPressed: () {
                 Navigator.pop(context);
-                recipeStore.removeRecipe(recipeId);
+                showRecipeDeletionSnackBar(
+                  context,
+                  recipeStore.removeRecipeWithDelay(
+                    recipeId,
+                    recipeDeletionUndoDuration,
+                  ),
+                  recipeDeletionUndoDuration,
+                );
               }),
         ],
       ),
