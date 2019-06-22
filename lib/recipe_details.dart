@@ -46,15 +46,16 @@ class RecipeDetails extends StatelessWidget {
           IconButton(
               icon: const Icon(Icons.delete),
               tooltip: 'Delete',
-              onPressed: () {
-                Navigator.pop(context);
-                showRecipeDeletionSnackBar(
+              onPressed: () async {
+                Navigator.pop(
                   context,
-                  recipeStore.removeRecipeWithDelay(
-                    recipeId,
+                  RecipeDeletionAction(
+                    recipeStore.removeRecipeWithDelay(
+                      recipeId,
+                      recipeDeletionUndoDuration,
+                    ),
                     recipeDeletionUndoDuration,
                   ),
-                  recipeDeletionUndoDuration,
                 );
               }),
         ],

@@ -68,13 +68,21 @@ class _RecipeViewState extends State<RecipeView> {
                               }
                             },
                           ),
-                          onTap: () {
-                            Navigator.push<RecipeDetails>(
+                          onTap: () async {
+                            final result =
+                                await Navigator.push<RecipeDeletionAction>(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => RecipeDetails(recipe.id),
                               ),
                             );
+                            if (result != null) {
+                              showRecipeDeletionSnackBar(
+                                context,
+                                result.operation,
+                                result.duration,
+                              );
+                            }
                           },
                         ),
                       ))
