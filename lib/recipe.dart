@@ -13,8 +13,10 @@ class Recipe {
   final List<String> ingredients;
   final String steps;
 
-  const Recipe(
-      {this.id, this.name, this.description, this.ingredients, this.steps});
+  final String displayName;
+
+  Recipe({this.id, this.name, this.description, this.ingredients, this.steps})
+      : displayName = name.isEmpty ? 'Unnamed recipe' : name;
 
   Recipe withId(int value) => Recipe(
         id: value,

@@ -16,7 +16,7 @@ class RecipeCard extends StatelessWidget {
     final recipeStore = Provider.of<RecipeStore>(context);
     return Card(
       child: ListTile(
-        title: Text(recipe.name.isEmpty ? 'Unnamed recipe' : recipe.name),
+        title: Text(recipe.displayName),
         trailing: PopupMenuButton<int>(
           icon: const Icon(Icons.more_vert),
           itemBuilder: (context) => const [
