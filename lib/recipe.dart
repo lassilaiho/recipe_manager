@@ -33,6 +33,19 @@ class Recipe {
         'ingredients': ingredients.join('\n'),
         'steps': steps,
       };
+
+  bool fieldsContain(Pattern pattern) {
+    final result =
+        displayName.contains(pattern) || description.contains(pattern);
+    if (!result) {
+      for (final ingredient in ingredients) {
+        if (ingredient.contains(pattern)) {
+          return true;
+        }
+      }
+    }
+    return result || steps.contains(pattern);
+  }
 }
 
 class RecipeStore extends ChangeNotifier {
