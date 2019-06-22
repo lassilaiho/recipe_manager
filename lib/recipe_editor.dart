@@ -15,32 +15,25 @@ class RecipeEditor extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() =>
-      _RecipeEditorState(initialRecipe, onEditFinished, title);
+  State<StatefulWidget> createState() => _RecipeEditorState();
 }
 
 class _RecipeEditorState extends State<RecipeEditor> {
-  final Recipe initialRecipe;
-  final void Function(Recipe) onEditFinished;
-  final String title;
-
-  var name = '';
-  var description = '';
-  var ingredients = '';
-  var steps = '';
+  var _name = '';
+  var _description = '';
+  var _ingredients = '';
+  var _steps = '';
 
   final _formKey = GlobalKey<FormState>();
-
-  _RecipeEditorState(this.initialRecipe, this.onEditFinished, this.title);
 
   @override
   void initState() {
     super.initState();
-    if (initialRecipe != null) {
-      name = initialRecipe.name;
-      description = initialRecipe.description;
-      ingredients = initialRecipe.ingredients.join('\n');
-      steps = initialRecipe.steps;
+    if (widget.initialRecipe != null) {
+      _name = widget.initialRecipe.name;
+      _description = widget.initialRecipe.description;
+      _ingredients = widget.initialRecipe.ingredients.join('\n');
+      _steps = widget.initialRecipe.steps;
     }
   }
 
@@ -48,7 +41,7 @@ class _RecipeEditorState extends State<RecipeEditor> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(widget.title),
         actions: [
           IconButton(
             icon: const Icon(Icons.done),
@@ -66,29 +59,29 @@ class _RecipeEditorState extends State<RecipeEditor> {
             children: [
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Name'),
-                initialValue: name,
-                onSaved: (value) => name = value,
+                initialValue: _name,
+                onSaved: (value) => _name = value,
               ),
               TextFormField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: const InputDecoration(labelText: 'Description'),
-                initialValue: description,
-                onSaved: (value) => description = value,
+                initialValue: _description,
+                onSaved: (value) => _description = value,
               ),
               TextFormField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: const InputDecoration(labelText: 'Ingredients'),
-                initialValue: ingredients,
-                onSaved: (value) => ingredients = value,
+                initialValue: _ingredients,
+                onSaved: (value) => _ingredients = value,
               ),
               TextFormField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: const InputDecoration(labelText: 'Steps'),
-                initialValue: steps,
-                onSaved: (value) => steps = value,
+                initialValue: _steps,
+                onSaved: (value) => _steps = value,
               ),
             ],
           ),
@@ -98,14 +91,14 @@ class _RecipeEditorState extends State<RecipeEditor> {
   }
 
   void _saveChanges() {
-    if (onEditFinished != null) {
+    if (widget.onEditFinished != null) {
       _formKey.currentState.save();
-      onEditFinished(Recipe(
-        id: initialRecipe?.id ?? -1,
-        name: name,
-        description: description,
-        ingredients: ingredients.isEmpty ? [] : ingredients.split('\n'),
-        steps: steps,
+      widget.onEditFinished(Recipe(
+        id: widget.initialRecipe?.id ?? -1,
+        name: _name,
+        description: _description,
+        ingredients: _ingredients.isEmpty ? [] : _ingredients.split('\n'),
+        steps: _steps,
       ));
     }
     Navigator.pop(context);
