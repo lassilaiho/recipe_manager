@@ -5,17 +5,20 @@ import 'recipe.dart';
 class RecipeEditor extends StatefulWidget {
   final Recipe initialRecipe;
   final void Function(Recipe recipe) onEditFinished;
+  final String title;
 
-  const RecipeEditor({this.initialRecipe, this.onEditFinished});
+  const RecipeEditor(
+      {this.initialRecipe, this.onEditFinished, this.title = 'Edit Recipe'});
 
   @override
   State<StatefulWidget> createState() =>
-      _RecipeEditorState(initialRecipe, onEditFinished);
+      _RecipeEditorState(initialRecipe, onEditFinished, title);
 }
 
 class _RecipeEditorState extends State<RecipeEditor> {
   final Recipe initialRecipe;
   final void Function(Recipe) onEditFinished;
+  final String title;
 
   var name = '';
   var description = '';
@@ -24,7 +27,7 @@ class _RecipeEditorState extends State<RecipeEditor> {
 
   final _formKey = GlobalKey<FormState>();
 
-  _RecipeEditorState(this.initialRecipe, this.onEditFinished);
+  _RecipeEditorState(this.initialRecipe, this.onEditFinished, this.title);
 
   @override
   void initState() {
@@ -41,7 +44,7 @@ class _RecipeEditorState extends State<RecipeEditor> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Recipe'),
+        title: Text(title),
         actions: [
           IconButton(
             icon: const Icon(Icons.done),

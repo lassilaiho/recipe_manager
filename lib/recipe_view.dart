@@ -99,6 +99,7 @@ class _RecipeViewState extends State<RecipeView> {
               builder: (context) => RecipeEditor(
                     initialRecipe: null,
                     onEditFinished: addRecipe,
+                    title: 'Add Recipe',
                   ),
             ),
           );
