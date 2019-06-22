@@ -8,7 +8,7 @@ import 'recipe_editor.dart';
 class RecipeDetails extends StatelessWidget {
   final int recipeId;
 
-  const RecipeDetails(this.recipeId);
+  const RecipeDetails(this.recipeId, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

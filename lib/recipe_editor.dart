@@ -7,8 +7,12 @@ class RecipeEditor extends StatefulWidget {
   final void Function(Recipe recipe) onEditFinished;
   final String title;
 
-  const RecipeEditor(
-      {this.initialRecipe, this.onEditFinished, this.title = 'Edit Recipe'});
+  const RecipeEditor({
+    Key key,
+    this.initialRecipe,
+    this.onEditFinished,
+    this.title = 'Edit Recipe',
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() =>

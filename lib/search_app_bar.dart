@@ -4,7 +4,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   final ValueChanged<String> onChanged;
   final void Function() onBack;
 
-  const SearchAppBar({this.onChanged, this.onBack});
+  const SearchAppBar({Key key, this.onChanged, this.onBack}) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(56);

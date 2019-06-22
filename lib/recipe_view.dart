@@ -7,6 +7,8 @@ import 'recipe_editor.dart';
 import 'search_app_bar.dart';
 
 class RecipeView extends StatefulWidget {
+  RecipeView({Key key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _RecipeViewState();
 }
