@@ -30,12 +30,7 @@ class _RecipeViewState extends State<RecipeView> {
                   }),
             )
           : _defaultAppBar(),
-      body: Consumer<RecipeStore>(
-        builder: (context, recipeStore, child) => ListView(
-              padding: const EdgeInsets.all(8),
-              children: _constructRecipeCards(recipeStore),
-            ),
-      ),
+      body: Consumer<RecipeStore>(builder: _recipeCardListBuilder),
       floatingActionButton: AnimatedOpacity(
         opacity: _isSearching ? 0 : 1,
         duration: const Duration(milliseconds: 500),
@@ -69,11 +64,15 @@ class _RecipeViewState extends State<RecipeView> {
         ],
       );
 
-  List<Widget> _constructRecipeCards(RecipeStore store) {
+  Widget _recipeCardListBuilder(
+      BuildContext context, RecipeStore store, Widget child) {
     Iterable<Recipe> recipesToShow = store.recipes;
     if (_isSearching) {
       if (_searchString.isEmpty) {
-        return [];
+        return ListView(
+          padding: const EdgeInsets.all(8),
+          children: const [],
+        );
       }
       final pattern = RegExp(
         RegExp.escape(_searchString),
@@ -82,11 +81,17 @@ class _RecipeViewState extends State<RecipeView> {
       recipesToShow =
           recipesToShow.where((recipe) => recipe.fieldsContain(pattern));
     }
-    return recipesToShow
-        .map((recipe) => RecipeCard(
-              key: Key(recipe.id.toString()),
-              recipe: recipe,
-            ))
-        .toList();
+    final recipes = recipesToShow.toList();
+    return ListView.builder(
+      padding: const EdgeInsets.all(8),
+      itemCount: recipes.length,
+      itemBuilder: (context, index) {
+        final recipe = recipes[index];
+        return RecipeCard(
+          key: Key(recipe.id.toString()),
+          recipe: recipe,
+        );
+      },
+    );
   }
 }
