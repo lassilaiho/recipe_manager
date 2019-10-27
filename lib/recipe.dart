@@ -16,7 +16,7 @@ class Recipe {
   final String displayName;
 
   Recipe({this.id, this.name, this.description, this.ingredients, this.steps})
-      : displayName = name.isEmpty ? 'Unnamed recipe' : name;
+      : displayName = name.isEmpty ? null : name;
 
   Recipe withId(int value) => Recipe(
         id: value,
@@ -35,8 +35,8 @@ class Recipe {
       };
 
   bool fieldsContain(Pattern pattern) {
-    final result =
-        displayName.contains(pattern) || description.contains(pattern);
+    final result = displayName?.contains(pattern) ??
+        false || description.contains(pattern);
     if (!result) {
       for (final ingredient in ingredients) {
         if (ingredient.contains(pattern)) {

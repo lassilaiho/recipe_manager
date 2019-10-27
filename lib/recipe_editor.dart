@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_manager/app_localizations.dart';
 
 import 'recipe.dart';
 
@@ -11,7 +12,7 @@ class RecipeEditor extends StatefulWidget {
     Key key,
     this.initialRecipe,
     this.onEditFinished,
-    this.title = 'Edit Recipe',
+    this.title,
   }) : super(key: key);
 
   @override
@@ -39,13 +40,14 @@ class _RecipeEditorState extends State<RecipeEditor> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         actions: [
           IconButton(
             icon: const Icon(Icons.done),
-            tooltip: 'Save Changes',
+            tooltip: localizations.saveChanges,
             onPressed: _saveChanges,
           )
         ],
@@ -58,28 +60,30 @@ class _RecipeEditorState extends State<RecipeEditor> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: localizations.name),
                 initialValue: _name,
                 onSaved: (value) => _name = value,
               ),
               TextFormField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                decoration: const InputDecoration(labelText: 'Description'),
+                decoration:
+                    InputDecoration(labelText: localizations.description),
                 initialValue: _description,
                 onSaved: (value) => _description = value,
               ),
               TextFormField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                decoration: const InputDecoration(labelText: 'Ingredients'),
+                decoration:
+                    InputDecoration(labelText: localizations.ingredients),
                 initialValue: _ingredients,
                 onSaved: (value) => _ingredients = value,
               ),
               TextFormField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                decoration: const InputDecoration(labelText: 'Steps'),
+                decoration: InputDecoration(labelText: localizations.steps),
                 initialValue: _steps,
                 onSaved: (value) => _steps = value,
               ),

@@ -1,0 +1,88 @@
+{
+  "@@last_modified": "2019-10-12T13:28:39.037340",
+  "title": "Reseptit",
+  "@title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "edit": "Muokkaa",
+  "@edit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "remove": "Poista",
+  "@remove": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "detailsTitle": "Reseptin tiedot",
+  "@detailsTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "delete": "Poista",
+  "@delete": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ingredients": "Ainesosat",
+  "@ingredients": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "steps": "Vaiheet",
+  "@steps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "recipeDeleted": "Resepti poistettu",
+  "@recipeDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "undo": "Kumoa",
+  "@undo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editRecipe": "Muokkaa reseptiä",
+  "@editRecipe": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "saveChanges": "Tallenna muutokset",
+  "@saveChanges": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "name": "Nimi",
+  "@name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "description": "Kuvaus",
+  "@description": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addRecipe": "Lisää resepti",
+  "@addRecipe": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "recipesTitle": "Reseptit",
+  "@recipesTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "search": "Hae",
+  "@search": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "unnamedRecipe": "Nimeämätön resepti",
+  "@unnamedRecipe": {
+    "type": "text",
+    "placeholders": {}
+  }
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'app_localizations.dart';
 import 'recipe.dart';
 import 'recipe_card.dart';
 import 'recipe_editor.dart';
@@ -25,9 +26,9 @@ class _RecipeViewState extends State<RecipeView> {
               onChanged: (searchString) =>
                   setState(() => _searchString = searchString),
               onBack: () => setState(() {
-                    _isSearching = false;
-                    _searchString = '';
-                  }),
+                _isSearching = false;
+                _searchString = '';
+              }),
             )
           : _defaultAppBar(),
       body: Consumer<RecipeStore>(builder: _recipeCardListBuilder),
@@ -41,11 +42,10 @@ class _RecipeViewState extends State<RecipeView> {
               context,
               MaterialPageRoute(
                 builder: (context) => RecipeEditor(
-                      initialRecipe: null,
-                      onEditFinished:
-                          Provider.of<RecipeStore>(context).addRecipe,
-                      title: 'Add Recipe',
-                    ),
+                  initialRecipe: null,
+                  onEditFinished: Provider.of<RecipeStore>(context).addRecipe,
+                  title: AppLocalizations.of(context).addRecipe,
+                ),
               ),
             );
           },
@@ -55,7 +55,7 @@ class _RecipeViewState extends State<RecipeView> {
   }
 
   PreferredSizeWidget _defaultAppBar() => AppBar(
-        title: const Text('Recipes'),
+        title: Text(AppLocalizations.of(context).recipesTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),

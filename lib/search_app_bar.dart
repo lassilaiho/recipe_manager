@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_localizations.dart';
+
 class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   final ValueChanged<String> onChanged;
   final void Function() onBack;
@@ -26,9 +28,9 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
         onChanged: onChanged,
         autofocus: true,
         cursorColor: theme.colorScheme.onSurface,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           labelText: null,
-          hintText: 'Search',
+          hintText: AppLocalizations.of(context).search,
           border: InputBorder.none,
         ),
       ),

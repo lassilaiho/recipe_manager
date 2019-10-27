@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_manager/app_localizations.dart';
 
 import 'recipe.dart';
 import 'recipe_deletion_snack_bar.dart';
@@ -13,51 +14,53 @@ class RecipeDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final recipeStore = Provider.of<RecipeStore>(context);
+    final localizations = AppLocalizations.of(context);
     if (!recipeStore.containsRecipe(recipeId)) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Recipe Details'),
+          title: Text(localizations.detailsTitle),
         ),
       );
     }
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recipe Details'),
+        title: Text(localizations.detailsTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
-            tooltip: 'Edit',
+            tooltip: localizations.edit,
             onPressed: () {
               Navigator.push<RecipeEditor>(
                 context,
                 MaterialPageRoute(
                   builder: (context) => Consumer<RecipeStore>(
-                        builder: (context, recipeStore, child) => RecipeEditor(
-                              initialRecipe:
-                                  recipeStore.getRecipeById(recipeId),
-                              onEditFinished: recipeStore.updateRecipe,
-                            ),
-                      ),
+                    builder: (context, recipeStore, child) => RecipeEditor(
+                      initialRecipe: recipeStore.getRecipeById(recipeId),
+                      onEditFinished: recipeStore.updateRecipe,
+                      title: localizations.editRecipe,
+                    ),
+                  ),
                 ),
               );
             },
           ),
           IconButton(
-              icon: const Icon(Icons.delete),
-              tooltip: 'Delete',
-              onPressed: () async {
-                Navigator.pop(
-                  context,
-                  RecipeDeletionAction(
-                    recipeStore.removeRecipeWithDelay(
-                      recipeId,
-                      recipeDeletionUndoDuration,
-                    ),
+            icon: const Icon(Icons.delete),
+            tooltip: localizations.delete,
+            onPressed: () async {
+              Navigator.pop(
+                context,
+                RecipeDeletionAction(
+                  recipeStore.removeRecipeWithDelay(
+                    recipeId,
                     recipeDeletionUndoDuration,
                   ),
-                );
-              }),
+                  recipeDeletionUndoDuration,
+                ),
+              );
+            },
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -70,11 +73,12 @@ class RecipeDetails extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(recipe.displayName, style: textTheme.headline),
+                  Text(recipe.displayName ?? localizations.unnamedRecipe,
+                      style: textTheme.headline),
                   if (recipe.description.isNotEmpty)
                     _padTop(Text(recipe.description)),
                   _padTop(Text(
-                    'Ingredients',
+                    localizations.ingredients,
                     style: textTheme.headline,
                   )),
                   Padding(
@@ -87,7 +91,7 @@ class RecipeDetails extends StatelessWidget {
                     ),
                   ),
                   _padTop(Text(
-                    'Steps',
+                    localizations.steps,
                     style: textTheme.headline,
                   )),
                   Text(recipe.steps),

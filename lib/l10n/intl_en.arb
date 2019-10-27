@@ -1,0 +1,88 @@
+{
+  "@@last_modified": "2019-10-12T13:28:39.037340",
+  "title": "Recipes",
+  "@title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "edit": "Edit",
+  "@edit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "remove": "Remove",
+  "@remove": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "detailsTitle": "Recipe Details",
+  "@detailsTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "delete": "Delete",
+  "@delete": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ingredients": "Ingredients",
+  "@ingredients": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "steps": "Steps",
+  "@steps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "recipeDeleted": "Recipe deleted",
+  "@recipeDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "undo": "Undo",
+  "@undo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editRecipe": "Edit Recipe",
+  "@editRecipe": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "saveChanges": "Save Changes",
+  "@saveChanges": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "name": "Name",
+  "@name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "description": "Description",
+  "@description": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addRecipe": "Add Recipe",
+  "@addRecipe": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "recipesTitle": "Recipes",
+  "@recipesTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "search": "Search",
+  "@search": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "unnamedRecipe": "Unnamed recipe",
+  "@unnamedRecipe": {
+    "type": "text",
+    "placeholders": {}
+  }
+}
