@@ -86,7 +86,8 @@ class RecipeDetails extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: recipe.ingredients
-                          .map((ingredient) => Text('• $ingredient'))
+                          .map((ingredient) =>
+                              Text(ingredient.isEmpty ? '' : '• $ingredient'))
                           .toList(),
                     ),
                   ),
