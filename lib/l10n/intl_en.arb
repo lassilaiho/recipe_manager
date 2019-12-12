@@ -84,5 +84,10 @@
   "@unnamedRecipe": {
     "type": "text",
     "placeholders": {}
+  },
+  "copyIngredients": "Copy ingredients",
+  "@copyIngredients": {
+    "type": "text",
+    "placeholders": {}
   }
 }

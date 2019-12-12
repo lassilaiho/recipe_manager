@@ -124,6 +124,12 @@ class AppLocalizations {
         name: 'unnamedRecipe',
         locale: localeName,
       );
+
+  String get copyIngredients => Intl.message(
+        'Copy ingredients',
+        name: 'copyIngredients',
+        locale: localeName,
+      );
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
